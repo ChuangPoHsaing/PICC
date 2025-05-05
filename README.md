@@ -13,8 +13,20 @@
 
   * 未移除 Tegaderm 膜。
   * 管路底座未拆除。
-  * 管線拉出超過 5cm 。
+  * 管線拉出超過 5cm。
 * **即時影像儲存與紀錄輸出**：當消毒完成或異常事件發生時，自動儲存影像並記錄到 Excel。
+
+---
+
+## 🧾 程式介紹
+
+| 檔名                     | 功能說明                                                         |
+| ---------------------- | ------------------------------------------------------------ |
+| `detect_picc.py`       | 主程式，整合 YOLOv8 偵測模型，讀取影片並執行目標偵測、碰撞偵測與流程控制。支援影片輸出與 Excel 紀錄產生。 |
+| `yolov8_utils.py`      | 封裝 YOLOv8 推論流程與物件邊界框的資料轉換，支援對特定類別的偵測與篩選。                     |
+| `disinfect_tracker.py` | 控制消毒碰撞流程，追蹤紅色橢圓是否依順序碰撞四個消毒點，並累計消毒次數。                         |
+| `ellipse_detector.py`  | （若有）針對紅色棉花棒區域進行橢圓擬合與中心點擷取。                                   |
+| `save_util.py`         | 管理 Excel 紀錄的格式化輸出與影像儲存，包含時間戳與事件標註。                           |
 
 ---
 
@@ -40,7 +52,7 @@ pip install -r requirements.txt
 
 ## ▶️ 使用方法
 
-1. 開啟外接鏡頭
+1. 開啟鏡頭
 2. 執行主程式：
 3. 預設輸出儲存在 `results/`，含：
 
@@ -57,6 +69,7 @@ picc-safety-detection/
 ├── detect_picc.py              # 主程式
 ├── yolov8_utils.py             # YOLOv8 推論與座標處理工具
 ├── disinfect_tracker.py        # 消毒碰撞邏輯與計數器
+├── save_util.py                # 影像與 Excel 儲存工具
 ├── requirements.txt            # 所需套件
 ├── videos/                     # 原始輸入影片
 ├── results/                    # 偵測後影片與報告儲存區
@@ -115,3 +128,8 @@ picc-safety-detection/
 * [OpenCV](https://opencv.org/)
 * [Python 官方網站](https://www.python.org/)
 * [PICC 介紹 - 衛福部資料](https://www.mohw.gov.tw/)
+
+---
+
+
+
